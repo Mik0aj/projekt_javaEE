@@ -11,25 +11,13 @@ import java.io.PrintWriter;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
-    /*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         if(login.equals("admin") && password.equals("admin")){
             HttpSession session = request.getSession();
             session.setAttribute("login", login);
-            response.sendRedirect("mainPages.jsp");
-        }
-        else{
-            response.sendRedirect("loginPage.jsp");
-        }
-    }*/
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        if(login.equals("admin") && password.equals("admin")){
-            HttpSession session = request.getSession();
-            session.setAttribute("login", login);
-            response.sendRedirect("mainPages.jsp");
+            response.sendRedirect("mainPage.jsp");
         }
         else{
             response.sendRedirect("loginPage.jsp");

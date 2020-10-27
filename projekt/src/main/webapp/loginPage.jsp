@@ -8,7 +8,7 @@
     <meta name="description" content="Formularz logowania do komunikatora"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/loginPage/style.css" type="text/css"/>
+    <link rel="stylesheet" href="loginPage/style.css" type="text/css"/>
 
 </head>
 
@@ -16,7 +16,7 @@
 
 <main>
     <div id="container">
-        <form action="Login">
+        <form action="Login" method="post">
             <input type="text" name="login" placeholder="Login" onfocus="this.placeholder=''" onblur="this.placeholder='Login'">
             <input type="password" name="password" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'">
             <p id="zapomniane"><a href="#" id="przypomnienie">Nie pamiętasz hasła?</a></p>
