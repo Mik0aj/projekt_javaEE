@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="EmailSender" target="1.8" />
       <module name="projekt" target="1.8" />
     </bytecodeTargetLevel>
   </component>
