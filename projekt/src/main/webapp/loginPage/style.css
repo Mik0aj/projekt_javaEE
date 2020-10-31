@@ -99,3 +99,10 @@ input[type=submit]:focus
 {
 	color: #636363;
 }
+
+.error
+{
+	margin-top: 5px;
+	font-size: 15px;
+	color: red;
+}

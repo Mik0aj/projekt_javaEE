@@ -22,16 +22,22 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        if(login.equals("admin") && password.equals("admin")){
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        boolean everythingOK = true;
+        if(!login.equals("admin")){
+            everythingOK = false;
+            session.setAttribute("loginError", "Niepoprawny login.");
+        }
+        if(!password.equals("admin")){
+            everythingOK = false;
+            session.setAttribute("passwordError", "Niepoprawne hasło.");
+        }
+        if(everythingOK){
             session.setAttribute("login", login);
-
-            RequestDispatcher view = request.getRequestDispatcher("mainPage.jsp");
-            view.forward(request, response);
+            response.sendRedirect("mainPage.jsp");
         }
         else{
-            RequestDispatcher view = request.getRequestDispatcher("loginPage.jsp");
-            view.forward(request, response);
+            response.sendRedirect("loginPage.jsp");
         }
     }
 }
