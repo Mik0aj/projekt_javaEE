@@ -1,5 +1,7 @@
 package com.strona;
 
+import com.strona.verify.VerifyReCaptcha;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +13,7 @@ import java.util.regex.Pattern;
 
 @WebServlet("/Registration")
 public class Registration extends HttpServlet {
-    private pl.login.VerifyReCaptcha verifyReCaptcha = new pl.login.VerifyReCaptcha();
+    private VerifyReCaptcha verifyReCaptcha = new VerifyReCaptcha();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");

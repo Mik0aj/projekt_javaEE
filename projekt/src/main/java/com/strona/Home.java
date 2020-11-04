@@ -22,12 +22,5 @@ public class Home extends HttpServlet {
 
         view.forward(request, response);
 
-        /*
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter writer = response.getWriter();
-        writer.println("Strona działa poprawnie.");
-
-         */
     }
 }

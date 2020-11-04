@@ -34,15 +34,6 @@ public class Login extends HttpServlet {
             session.setAttribute("passwordError", "Niepoprawne hasło.");
         }
         if(everythingOK){
-            /*
-            try {
-                GoogleMail.Send("Jan", "haslodlajan", "jankowalski3212322@gmail.com", "jankowalski3212322@gmail.com", "wiadomosc", "wiadomosc");
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-
-             */
-            //emailSender.sendEmail("jankowalski3212322@gmail.com", "Jan", "haslodlajan", "jankowalski3212322@gmail.com", "temat", "wiadomosc");
 
             session.setAttribute("login", login);
             response.sendRedirect("mainPage.jsp");
