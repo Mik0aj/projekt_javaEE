@@ -29,7 +29,7 @@
                     out.print("<div class='error'>"+session.getAttribute("passwordError")+"</div>");
                 }
             %>
-            <p id="zapomniane"><a href="#" id="przypomnienie">Nie pamiętasz hasła?</a></p>
+            <p id="zapomniane"><a href="insertEmailPage.jsp" id="przypomnienie">Nie pamiętasz hasła?</a></p>
             <input type="submit" value="Zaloguj się">
             <p id="brakKonta">Nie masz konta? <a href="registrationPage.jsp" id="rejestracja">Zarejestruj się.</a></p>
             <% session.invalidate(); %>

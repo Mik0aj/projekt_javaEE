@@ -1,0 +1,54 @@
+[33mcommit c6ff103bf5a876267329a33149be533e55072bbd[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: James17PL <bpietrzczyk@gmail.com>
+Date:   Sat Oct 31 21:17:26 2020 +0100
+
+    Dodanie strony rejestracji oraz modyfikacja strony logowania oraz serwletow i klas powiazanych z tymi stronami
+
+[33mcommit 183d32401c28249b23cf06313374dbab7c573b9e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: PawelSwitalski <49319499+pawelswitalski@users.noreply.github.com>
+Date:   Sat Oct 31 11:22:19 2020 +0100
+
+    dodanie pliku EmailSender-1.0-SNAPSHOT.jar
+
+[33mcommit 0bd4d4e578c173527439729e5565f4bcf1f49a47[m
+Author: PawelSwitalski <49319499+pawelswitalski@users.noreply.github.com>
+Date:   Tue Oct 27 22:58:10 2020 +0100
+
+    dodanie doGet
+
+[33mcommit cbc81c28555bb427ce021128deda07abce9d0d32[m
+Author: James17PL <bpietrzczyk@gmail.com>
+Date:   Tue Oct 27 22:06:25 2020 +0100
+
+    Dodanie mechanizmu wylogowania ze strony glownej
+
+[33mcommit 8b63f6a9a8c1ae5fbd16371afbdd72947ea5b559[m
+Author: James17PL <bpietrzczyk@gmail.com>
+Date:   Tue Oct 27 21:20:27 2020 +0100
+
+    Dodanie strony logowania i servletu obslugujacego logowanie do komunikatora
+
+[33mcommit 847cf54cc288dd16fcdcb8a1f6d76b6e6cf1ac6a[m
+Author: PawelSwitalski <49319499+pawelswitalski@users.noreply.github.com>
+Date:   Tue Oct 27 18:52:15 2020 +0100
+
+    Dodanie servletu Root
+    Oraz root.jsp w folderze WEB-INF/views
+
+[33mcommit 04966d48e0b7d0a19166b6a4f4beadab3c8249cb[m
+Author: James17PL <bpietrzczyk@gmail.com>
+Date:   Sun Oct 25 11:21:29 2020 +0100
+
+    Commit testowy
+
+[33mcommit fb2ed36e2be7962365e08c2bb978c4e54c103504[m
+Author: PawelSwitalski <49319499+PawelSwitalski@users.noreply.github.com>
+Date:   Sun Oct 25 11:16:57 2020 +0100
+
+    Create plik.txt
+
+[33mcommit 82996ee31f385016f621d98f22d59b76d0bb3049[m
+Author: Pawel Switalski <paswitalski@gmail.com>
+Date:   Sun Oct 25 10:56:31 2020 +0100
+
+    pierwszy commit
