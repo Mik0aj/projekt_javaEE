@@ -1,15 +1,11 @@
-package pl.login;
+package com.strona.verify;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.URL;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
+import java.io.*;
+import java.net.URL;
 
 public class VerifyReCaptcha {
     public static final String url = "https://www.google.com/recaptcha/api/siteverify";
