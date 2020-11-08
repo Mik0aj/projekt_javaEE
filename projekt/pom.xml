@@ -36,13 +36,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>EmailSender</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/EmailSender-1.0-SNAPSHOT.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
             <version>1.6.4</version>
