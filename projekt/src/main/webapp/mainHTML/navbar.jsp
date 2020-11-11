@@ -21,7 +21,7 @@ Pasek menu
                     <a class="nav-link" href="#">Page</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/home">Grupy</a> <!-- Wyświetla grupy do których przynależy użytkownik -->
+                        <a id="home" class="nav-link" href="${pageContext.request.contextPath}/home">Grupy</a> <!-- Wyświetla grupy do których przynależy użytkownik -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/MyGroups">Moje grupy</a> <!-- Wyświetla grupy których użytkownik jest właścicielem-->
