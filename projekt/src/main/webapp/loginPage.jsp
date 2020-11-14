@@ -18,15 +18,10 @@
     <div id="container">
         <form action="Login" method="post">
             <input type="text" name="login" placeholder="Login" onfocus="this.placeholder=''" onblur="this.placeholder='Login'">
-            <%
-                if(session.getAttribute("loginError")!=null){
-                    out.print("<div class='error'>"+session.getAttribute("loginError")+"</div>");
-                }
-            %>
             <input type="password" name="password" placeholder="Hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Hasło'">
             <%
-                if(session.getAttribute("passwordError")!=null){
-                    out.print("<div class='error'>"+session.getAttribute("passwordError")+"</div>");
+                if(session.getAttribute("error")!=null){
+                    out.print("<div class='error'>"+session.getAttribute("error")+"</div>");
                 }
             %>
             <p id="zapomniane"><a href="insertEmailPage.jsp" id="przypomnienie">Nie pamiętasz hasła?</a></p>

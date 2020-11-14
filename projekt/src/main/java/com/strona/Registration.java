@@ -1,5 +1,6 @@
 package com.strona;
 
+import com.database.RegistrationDAO;
 import com.strona.verify.VerifyReCaptcha;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 @WebServlet("/Registration")
 public class Registration extends HttpServlet {
     private VerifyReCaptcha verifyReCaptcha = new VerifyReCaptcha();
+    private RegistrationDAO registrationDAO = new RegistrationDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
@@ -33,7 +35,7 @@ public class Registration extends HttpServlet {
         }
 
         //sprawdzenie czy login jest już w bazie danych
-        if(login.equals("admin")){
+        if(registrationDAO.isLoginNotAvailable(login)){
             everythingOK = false;
             session.setAttribute("loginError", "Ten login jest już zajęty.");
         }
@@ -42,6 +44,12 @@ public class Registration extends HttpServlet {
         if(!isEmailValid(email)){
             everythingOK = false;
             session.setAttribute("emailError", "Niepoprawny format adresu email.");
+        }
+
+        //sprawdzenie czy email jest już w bazie danych
+        if(registrationDAO.isEmailNotAvailable(email)){
+            everythingOK = false;
+            session.setAttribute("emailError", "Podany adres email jest już w bazie danych.");
         }
 
         //sprawdzenie czy hasło ma od 8 do 20 znaków
@@ -69,6 +77,7 @@ public class Registration extends HttpServlet {
         }
 
         if(everythingOK){
+            registrationDAO.addUserToDatabase(login, password, email);
             response.sendRedirect("loginPage.jsp");
         }
         else{
