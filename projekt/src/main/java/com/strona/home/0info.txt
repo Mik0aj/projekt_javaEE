@@ -1,0 +1,4 @@
+Folder z serwletami
+Home - główny
+
+Powinny wyświetlać informacje jeżeli użytkownik jest zalogowany.
