@@ -1,5 +1,7 @@
 package com.database;
 
+import com.changePassword.GenerateCode;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
@@ -10,6 +12,7 @@ import java.sql.Statement;
 public class RegistrationDAO {
     DatabaseConnection databaseConnection = new DatabaseConnection();
     PBKDF2_Algorithm hashAlgorithm = new PBKDF2_Algorithm();
+    GenerateCode generateCode = new GenerateCode();
 
     public boolean isLoginNotAvailable(String login) {
         Connection connection = databaseConnection.getConnection();
@@ -53,6 +56,12 @@ public class RegistrationDAO {
         return false;
     }
 
+    public void addUser(String login, String password, String email){
+        addUserToDatabase(login, password, email);
+        addUserChatsTable(login);
+        addVeryfingCodeValue(login);
+    }
+
     public void addUserToDatabase(String login, String password, String email){
         String hashedPassword="";
         try {
@@ -69,6 +78,47 @@ public class RegistrationDAO {
             statement.execute(addUserQuery);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+        databaseConnection.closeConnection();
+    }
+
+    public void addUserChatsTable(String login){
+        String id="";
+        Connection connection = databaseConnection.getConnection();
+        String getUserIDQuery = "SELECT user_id FROM users WHERE login='"+login+"'";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(getUserIDQuery);
+            if(queryResult.next()){
+                id=queryResult.getString("user_id");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String addTableQuery = "CREATE TABLE user"+id+"_chats (chat_id int(20), name varchar(20), is_owner tinyint(1), nick varchar(20), FOREIGN KEY (chat_id) REFERENCES chats(chat_id))";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(addTableQuery);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        databaseConnection.closeConnection();
+    }
+
+    public void addVeryfingCodeValue(String login){
+        Connection connection = databaseConnection.getConnection();
+        boolean isOK = false;
+        while(!isOK){
+            String code = generateCode.generateResetCode();
+            String addVeryfingCodeValueQuery = "INSERT INTO user_verifying_code (code, user_id) SELECT '"+code+"', user_id FROM users WHERE login='"+login+"'";
+            try {
+                Statement statement = connection.createStatement();
+                statement.execute(addVeryfingCodeValueQuery);
+                isOK=true;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                isOK=false;
+            }
         }
         databaseConnection.closeConnection();
     }

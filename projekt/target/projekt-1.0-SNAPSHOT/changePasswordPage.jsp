@@ -22,6 +22,7 @@
             Wpisz w oba pola nowe hasło.
         </div>
         <form action="ChangePassword" method="post">
+            <input type="hidden" name="user_id" value="<%= session.getAttribute("user_id") %>" />
             <input type="password" name="password" placeholder="Nowe hasło" onfocus="this.placeholder=''" onblur="this.placeholder='Nowe hasło'">
             <%
                 if(session.getAttribute("passwordError1")!=null){

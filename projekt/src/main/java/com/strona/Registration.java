@@ -77,7 +77,7 @@ public class Registration extends HttpServlet {
         }
 
         if(everythingOK){
-            registrationDAO.addUserToDatabase(login, password, email);
+            registrationDAO.addUser(login, password, email);
             response.sendRedirect("loginPage.jsp");
         }
         else{

@@ -1,5 +1,7 @@
 package com.changePassword;
 
+import com.database.DatabaseConnection;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -26,6 +32,8 @@ public class SendEmail extends HttpServlet {
     private String pass;
 
     private EmailUtility emailUtility = new EmailUtility();
+    private DatabaseConnection databaseConnection = new DatabaseConnection();
+    private GenerateCode generateCode = new GenerateCode();
 
     public void init() {
         // reads SMTP server setting from web.xml file
@@ -36,33 +44,46 @@ public class SendEmail extends HttpServlet {
         pass = context.getInitParameter("pass");
     }
 
-    public static boolean isEmailValid(String email)
+    public boolean isEmailInDatabase(String email)
     {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
-        return pat.matcher(email).matches();
+        Connection connection = databaseConnection.getConnection();
+        String verifyEmailQuery = "SELECT * FROM `users` WHERE email='"+email+"'";
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(verifyEmailQuery);
+            if(queryResult.next()){
+                databaseConnection.closeConnection();
+                return true;
+            }
+            else{
+                databaseConnection.closeConnection();
+                return false;
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    //potem wstawić w osobną klasę i zapisywać do bazy danych
-    public String generateResetCode() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 8;
-        Random random = new Random();
-
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-
-        return generatedString;
+    public String addCodeToDatabase(String email){
+        Connection connection = databaseConnection.getConnection();
+        String code="";
+        boolean isOK = false;
+        while(!isOK){
+            code = generateCode.generateResetCode();
+            String addVeryfingCodeValueQuery = "UPDATE user_verifying_code SET code='"+code+"' WHERE user_id=(SELECT user_id FROM users WHERE email='"+email+"')";
+            try {
+                Statement statement = connection.createStatement();
+                statement.execute(addVeryfingCodeValueQuery);
+                isOK = true;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                isOK = false;
+            }
+        }
+        databaseConnection.closeConnection();
+        return code;
     }
 
     @Override
@@ -73,9 +94,9 @@ public class SendEmail extends HttpServlet {
         // reads form fields
         String email = request.getParameter("email");
 
-        String code = generateResetCode();
+        if(isEmailInDatabase(email)){
+            String code = addCodeToDatabase(email);
 
-        if(isEmailValid(email)){
             String subject = "Resetowanie hasła";
             String content = "Twój kod do zresetowania hasła: "+code;
 
@@ -91,13 +112,11 @@ public class SendEmail extends HttpServlet {
                 ex.printStackTrace();
                 resultMessage = "There were an error: " + ex.getMessage();
             } finally {
-            /*request.setAttribute("Message", resultMessage);
-            getServletContext().getRequestDispatcher("/Result.jsp").forward(request, response);*/
                 System.out.println(resultMessage);
             }
         }
         else{
-            session.setAttribute("emailError", "Niepoprawny format adresu email.");
+            session.setAttribute("emailError", "Podanego adresu email nie ma w bazie danych użytkowników.");
             response.sendRedirect("insertEmailPage.jsp");
         }
     }
