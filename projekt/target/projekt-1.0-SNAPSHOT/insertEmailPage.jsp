@@ -24,7 +24,7 @@
             <input type="text" name="email" placeholder="Email" onfocus="this.placeholder=''" onblur="this.placeholder='Email'">
             <%
                 if(session.getAttribute("emailError")!=null){
-                    out.print("<div class='error'>"+session.getAttribute("emailError")+"</div>");
+                    out.print("<div id='errorEmail' class='error'>"+session.getAttribute("emailError")+"</div>");
                 }
             %>
             <input type="submit" value="Wyślij kod">
