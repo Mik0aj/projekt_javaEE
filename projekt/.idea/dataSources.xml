@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="m1450_Discord2@mysql10.mydevil.net" uuid="e8b3c110-fc1f-482c-89a9-c6ea25a0e535">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql10.mydevil.net/m1450_Discord2</jdbc-url>
+    </data-source>
+  </component>
+</project>
