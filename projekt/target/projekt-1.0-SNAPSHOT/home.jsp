@@ -9,7 +9,7 @@
 <html lang="pl">
     <%@ include file="mainHTML/head.html" %>
 <body>
-<%@ include file="mainHTML/navbar.html" %>
+<%@ include file="mainHTML/navbar.jsp" %>
 
 <h1>Strona startowa</h1>
 
