@@ -1,3 +1,12 @@
+/*
+*
+*
+* Wyświetla
+*
+*
+* */
+
+
 package com.strona.home;
 
 import com.database.User;
@@ -18,16 +27,18 @@ public class MyAccount extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //String login = request.getParameter("login");
         HttpSession session = request.getSession();
         Object login = session.getAttribute("login");
 
-        String dbEmail = User.getEmail(login);
-
-
-        session.setAttribute("userEmail", dbEmail);
-
-        RequestDispatcher view = request.getRequestDispatcher("home/myAccount/myAccount.jsp");
+        // jak nie jesteśmy zalogowanie odsyła nas do loginPage.jsp
+        RequestDispatcher view;
+        if (login == null) {
+            view = request.getRequestDispatcher("loginPage.jsp");
+        } else {
+            String dbEmail = User.getEmail(login);
+            session.setAttribute("userEmail", dbEmail);
+            view = request.getRequestDispatcher("home/myAccount/myAccount.jsp");
+        }
         view.forward(request, response);
     }
 
