@@ -1,11 +1,14 @@
 package com.strona.home;
 
+import com.database.User;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "MyAccount", urlPatterns = "/MyAccount")
@@ -15,7 +18,17 @@ public class MyAccount extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //String login = request.getParameter("login");
+        HttpSession session = request.getSession();
+        Object login = session.getAttribute("login");
+
+        String dbEmail = User.getEmail(login);
+
+
+        session.setAttribute("userEmail", dbEmail);
+
         RequestDispatcher view = request.getRequestDispatcher("home/myAccount/myAccount.jsp");
         view.forward(request, response);
     }
+
 }

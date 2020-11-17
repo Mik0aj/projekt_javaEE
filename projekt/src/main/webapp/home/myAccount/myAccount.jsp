@@ -20,7 +20,7 @@
 
         <!-- informacje o profilu -->
         <h2>email</h2>
-        <p>email@email.com</p>
+        <p>${sessionScope.userEmail}</p>
 
     </div>
 </div>
