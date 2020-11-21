@@ -1,5 +1,6 @@
 package com.strona.home;
 
+import net.sourceforge.jwebunit.junit.WebTester;
 import net.sourceforge.jwebunit.util.TestingEngineRegistry;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +8,8 @@ import org.junit.Test;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 public class HomeTest {
+    private final WebTester tester = new WebTester();
+
     @Before
     public void prepare() {
         setScriptingEnabled(false);
@@ -17,7 +20,20 @@ public class HomeTest {
     @Test
     public void testHomePage() {
         beginAt("home");
-        assertTitleEquals("Discord2");
+        assertTitleEquals("Logowanie");
+    }
+
+    @Test
+    public void testLoginHomePage() {
+        beginAt("home");
+        assertTitleEquals("Logowanie");
+
+        setTextField("login", "NieUsuwać");
+        setTextField("password", "NieUsuwać");
+        clickButtonWithText("Zaloguj się");
+
+
+
         //assertLinkPresent("home");
         //clickLink("home");
         //assertTitleEquals("Discord2");
