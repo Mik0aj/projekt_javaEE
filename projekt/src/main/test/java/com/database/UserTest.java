@@ -7,9 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
-    private String newEmail = "test100@gmail.com";
+    private final String newEmail = "test100@gmail.com";
     private String oldEmail;
-    private String login = "test1";
+    private final String login = "test1";
 
     @BeforeEach
     public void prepare() {
