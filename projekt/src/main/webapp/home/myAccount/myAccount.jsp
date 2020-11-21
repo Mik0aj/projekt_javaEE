@@ -21,6 +21,8 @@
         <!-- informacje o profilu -->
         <h2>email</h2>
         <p>${sessionScope.userEmail}</p>
+        <h2>login</h2>
+        <p>${sessionScope.login}</p>
 
     </div>
 </div>
