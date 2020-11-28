@@ -19,6 +19,8 @@ public class Home extends HttpServlet {
         HttpSession session = request.getSession();
         Object login = session.getAttribute("login");
 
+        request.setAttribute("user", "Bandyta");
+
         // jak nie jesteśmy zalogowanie odsyła nas do loginPage.jsp
         RequestDispatcher view;
         if (login == null) {

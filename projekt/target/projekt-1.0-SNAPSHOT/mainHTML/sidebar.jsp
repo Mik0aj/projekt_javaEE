@@ -19,7 +19,13 @@
             <input id="GroupCode" class="download" type="text" style="display: none; margin-bottom: 10pt"/>
         </li>
         <li>
-            <a class="article">Nowa grupa</a>
+            <a class="article" href="registrationPage.jsp">Nowa grupa</a><br/>
+            <h2>
+                <%
+                    String user = (String) request.getAttribute("user");
+                    out.print(user+"<br/>");
+                %>
+            </h2>
         </li>
     </ul>
 </nav>
