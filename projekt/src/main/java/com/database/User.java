@@ -117,19 +117,35 @@ public class User {
 
 
 
-    //  To jeszcze nie wiem czy dobrze
+    //  zawiera  "DROP TABLE IF EXISTS user"+ useId +"_chats"
     public static void deleteUser(Object login){
+        String useId = getId(login);
+
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
         String deleteCommend = "DELETE FROM `users` WHERE login='"+ login +"'";
 
         try {
             Statement statement = connection.createStatement();
-            statement.executeQuery(deleteCommend);
+            statement.execute(deleteCommend);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         databaseConnection.closeConnection();
+
+
+
+        // usunięcie user+id+_chats
+        connection = databaseConnection.getConnection();
+        String dropUserIdChats = "DROP TABLE IF EXISTS user"+ useId +"_chats";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(dropUserIdChats);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        databaseConnection.closeConnection();
+
     }
 
 }

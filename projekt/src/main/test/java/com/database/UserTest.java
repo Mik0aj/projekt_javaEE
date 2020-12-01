@@ -61,5 +61,21 @@ public class UserTest {
 
     }
 
+    @Test
+    public void deleteUserTest(){
+        String login = "testDelete";
+
+        RegistrationDAO registrationDAO = new RegistrationDAO();
+        // najpierw tworzymy użytkownika
+        registrationDAO.addUser(login,
+                "testDelete", "testDelete@gemailcom");
+        User.deleteUser(login);
+        String id = User.getId(login);
+
+
+
+        Assertions.assertNull(id);
+    }
+
 
 }
