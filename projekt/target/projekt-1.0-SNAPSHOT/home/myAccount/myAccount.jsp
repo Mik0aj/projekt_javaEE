@@ -18,11 +18,28 @@
         <!-- navbar -->
         <%@ include file="../../mainHTML/navbar.jsp" %>
 
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h2>login</h2>
+                <p>${sessionScope.login}</p>
+            </div>
+            <div class="col-sm-4">
+                <h2>email</h2>
+                <p>${sessionScope.userEmail}</p>
+            </div>
+            <div class="col-sm-4">
+                <div>
+                    <form method="post" action="${pageContext.request.contextPath}/MyAccount">
+                        <button type="submit" name="deleteAccount" value="delete" class="btn btn-danger">Usuń konto</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
         <!-- informacje o profilu -->
-        <h2>email</h2>
-        <p>${sessionScope.userEmail}</p>
-        <h2>login</h2>
-        <p>${sessionScope.login}</p>
+
+
 
     </div>
 </div>

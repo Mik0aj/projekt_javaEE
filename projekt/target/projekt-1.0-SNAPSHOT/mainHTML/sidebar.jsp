@@ -1,15 +1,31 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.strona.chat.Chat" %>
+<%@ page import="java.util.ArrayList" %>
+
+<script>
+    $('#GroupCode').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            alert('You pressed a "enter" key in textbox');
+        }
+    });
+</script>
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Discord2</h3>
     </div>
 
     <ul class="list-unstyled components">
-        <li>
-            <a href="#">Grupa1</a>
-        </li>
-        <li>
-            <a href="#">Grupa2</a>
-        </li>
+        <%
+            List<Chat> chatList =(ArrayList<Chat>)session.getAttribute("chats");
+
+            for(Chat chat : chatList){
+                out.print("<li><a href='#'>"+chat.getChatName()+"</a></li>");
+            }
+            if(session.getAttribute("alreadyVisitedHome")==null){
+                session.setAttribute("alreadyVisitedHome", "yes");
+            }
+        %>
     </ul>
 
     <ul class="list-unstyled CTAs">
@@ -19,13 +35,7 @@
             <input id="GroupCode" class="download" type="text" style="display: none; margin-bottom: 10pt"/>
         </li>
         <li>
-            <a class="article" href="registrationPage.jsp">Nowa grupa</a><br/>
-            <h2>
-                <%
-                    String user = (String) request.getAttribute("user");
-                    out.print(user+"<br/>");
-                %>
-            </h2>
+            <a class="article" href="createChat.jsp">Nowa grupa</a>
         </li>
     </ul>
 </nav>
