@@ -30,9 +30,9 @@ public class Login extends HttpServlet {
 
         if(loginDAO.verifyLogin(login, password)){
             session.setAttribute("login", login);
-            RequestDispatcher view = request.getRequestDispatcher("home.jsp");
-            //response.sendRedirect("home.jsp");
-            view.forward(request, response);
+            //RequestDispatcher view = request.getRequestDispatcher("home.jsp");
+            response.sendRedirect("home");
+            //view.forward(request, response);
         }
         else{
             session.setAttribute("error", "Niepoprawny login lub hasło.");

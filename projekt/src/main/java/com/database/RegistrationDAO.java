@@ -95,7 +95,7 @@ public class RegistrationDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        String addTableQuery = "CREATE TABLE user"+id+"_chats (chat_id int(20), name varchar(20), is_owner tinyint(1), nick varchar(20), FOREIGN KEY (chat_id) REFERENCES chats(chat_id))";
+        String addTableQuery = "CREATE TABLE user"+id+"_chats (chat_id int(20), is_owner tinyint(1), nick varchar(20), FOREIGN KEY (chat_id) REFERENCES chats(chat_id))";
         try {
             Statement statement = connection.createStatement();
             statement.execute(addTableQuery);

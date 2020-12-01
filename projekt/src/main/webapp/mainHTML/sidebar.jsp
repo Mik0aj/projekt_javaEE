@@ -19,7 +19,7 @@
             <input id="GroupCode" class="download" type="text" style="display: none; margin-bottom: 10pt"/>
         </li>
         <li>
-            <a class="article">Nowa grupa</a>
+            <a class="article" href="registrationPage.jsp">Nowa grupa</a>
         </li>
     </ul>
 </nav>

@@ -195,6 +195,18 @@ ul ul a {
      */
 }
 
+h2
+{
+    font-size: 18px;
+    color: #2b9b2e;
+}
+
+p
+{
+    font-size: 18px;
+    color: #dcdcdc;
+}
+
 ul.CTAs {
     padding: 20px;
 }
