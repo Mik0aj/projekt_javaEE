@@ -58,7 +58,7 @@ public class RegistrationDAO {
 
     public void addUser(String login, String password, String email){
         addUserToDatabase(login, password, email);
-        addUserChatsTable(login);
+        //addUserChatsTable(login);
         addVeryfingCodeValue(login);
     }
 
