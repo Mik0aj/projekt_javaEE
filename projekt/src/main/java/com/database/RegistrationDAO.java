@@ -58,7 +58,6 @@ public class RegistrationDAO {
 
     public void addUser(String login, String password, String email){
         addUserToDatabase(login, password, email);
-        //addUserChatsTable(login);
         addVeryfingCodeValue(login);
     }
 
@@ -76,29 +75,6 @@ public class RegistrationDAO {
         try {
             Statement statement = connection.createStatement();
             statement.execute(addUserQuery);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        databaseConnection.closeConnection();
-    }
-
-    public void addUserChatsTable(String login){
-        String id="";
-        Connection connection = databaseConnection.getConnection();
-        String getUserIDQuery = "SELECT user_id FROM users WHERE login='"+login+"'";
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet queryResult = statement.executeQuery(getUserIDQuery);
-            if(queryResult.next()){
-                id=queryResult.getString("user_id");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        String addTableQuery = "CREATE TABLE user"+id+"_chats (chat_id int(20), is_owner tinyint(1), nick varchar(20), FOREIGN KEY (chat_id) REFERENCES chats(chat_id))";
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute(addTableQuery);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

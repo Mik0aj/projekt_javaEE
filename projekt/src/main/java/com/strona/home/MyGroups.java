@@ -73,13 +73,13 @@ public class MyGroups extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        String loadChatsQuery = "SELECT user"+userID+"_chats.chat_id, chats.name, chats.enter_code FROM chats INNER JOIN user"+userID+"_chats ON chats.chat_id=user"+userID+"_chats.chat_id WHERE is_owner=1;";
+        String loadChatsQuery = "SELECT chat_users.chat_id_fk, chats.name, chats.enter_code FROM chats INNER JOIN chat_users ON chats.chat_id=chat_users.chat_id_fk WHERE chat_users.user_id_fk="+userID+" AND chat_users.is_owner=1;";
         try{
             Statement statement = connection.createStatement();
             ResultSet queryResult = statement.executeQuery(loadChatsQuery);
             while(queryResult.next()){
                 Chat chat = new Chat();
-                chat.setChatID(queryResult.getString("chat_id"));
+                chat.setChatID(queryResult.getString("chat_id_fk"));
                 chat.setChatName(queryResult.getString("name"));
                 chat.setEnterCode(queryResult.getString("enter_code"));
                 ownChatList.add(chat);

@@ -2,14 +2,6 @@
 <%@ page import="com.strona.chat.Chat" %>
 <%@ page import="java.util.ArrayList" %>
 
-<script>
-    $('#GroupCode').keypress(function(event){
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13'){
-            alert('You pressed a "enter" key in textbox');
-        }
-    });
-</script>
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Discord2</h3>

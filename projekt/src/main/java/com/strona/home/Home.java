@@ -62,13 +62,13 @@ public class Home extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        String loadChatsQuery = "SELECT user"+userID+"_chats.chat_id, chats.name FROM chats INNER JOIN user"+userID+"_chats ON chats.chat_id=user"+userID+"_chats.chat_id;";
+        String loadChatsQuery = "SELECT chat_users.chat_id_fk, chats.name FROM chats INNER JOIN chat_users ON chats.chat_id=chat_users.chat_id_fk WHERE chat_users.user_id_fk="+userID+";";
         try{
             Statement statement = connection.createStatement();
             ResultSet queryResult = statement.executeQuery(loadChatsQuery);
             while(queryResult.next()){
                 Chat chat = new Chat();
-                chat.setChatID(queryResult.getString("chat_id"));
+                chat.setChatID(queryResult.getString("chat_id_fk"));
                 chat.setChatName(queryResult.getString("name"));
                 chatList.add(chat);
             }
