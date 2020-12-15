@@ -13,11 +13,13 @@
 package com.database;
 
 import com.changePassword.GenerateCode;
+import com.strona.chat.Chat;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ChatUsers {
     private DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -109,4 +111,30 @@ public class ChatUsers {
         return false;
     }
 
+    public static ArrayList<Chat> loadUserChats(String userID){
+        // Wszystkie czaty do których przynalaży użytkownik
+        ArrayList<Chat> userChats = new ArrayList();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+
+        String loadChatsQuery = "SELECT chat_users.chat_id_fk, chats.name, chats.enter_code FROM chats INNER JOIN chat_users ON chats.chat_id=chat_users.chat_id_fk WHERE chat_users.user_id_fk="+userID+";";
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(loadChatsQuery);
+            while(queryResult.next()){
+                Chat chat = new Chat();
+                chat.setChatID(queryResult.getString("chat_id_fk"));
+                chat.setChatName(queryResult.getString("name"));
+                chat.setEnterCode(queryResult.getString("enter_code"));
+                userChats.add(chat);
+                //userChats.add(queryResult.getString("name"));
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        databaseConnection.closeConnection();
+
+        return userChats;
+    }
 }

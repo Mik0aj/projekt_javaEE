@@ -25,7 +25,10 @@ public class Home extends HttpServlet {
     List<Chat> chatList = new ArrayList<>();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Sidebar.doPost(request);
 
+        RequestDispatcher view = request.getRequestDispatcher("home/home.jsp");
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

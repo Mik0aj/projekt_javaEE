@@ -34,6 +34,10 @@ public class MyGroups extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Sidebar.doPost(request);
+
+        RequestDispatcher view = request.getRequestDispatcher("home/myGroups.jsp");
+        view.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
