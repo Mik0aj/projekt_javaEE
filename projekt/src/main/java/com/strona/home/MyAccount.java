@@ -23,7 +23,7 @@ import java.io.IOException;
 @WebServlet(name = "MyAccount", urlPatterns = "/MyAccount")
 public class MyAccount extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Sidebar.doPost(request);
+        PreparePage.prepareSidebar(request);
 
         HttpSession session = request.getSession();
         Object login = session.getAttribute("login");

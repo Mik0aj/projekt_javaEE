@@ -111,13 +111,12 @@ public class ChatUsers {
         return false;
     }
 
-    public static ArrayList<Chat> loadUserChats(String userID){
-        // Wszystkie czaty do których przynalaży użytkownik
+    private static ArrayList<Chat> loadChats(String query){
         ArrayList<Chat> userChats = new ArrayList();
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
 
-        String loadChatsQuery = "SELECT chat_users.chat_id_fk, chats.name, chats.enter_code FROM chats INNER JOIN chat_users ON chats.chat_id=chat_users.chat_id_fk WHERE chat_users.user_id_fk="+userID+";";
+        String loadChatsQuery = query;
         try{
             Statement statement = connection.createStatement();
             ResultSet queryResult = statement.executeQuery(loadChatsQuery);
@@ -137,4 +136,18 @@ public class ChatUsers {
 
         return userChats;
     }
+
+    public static ArrayList<Chat> loadUserChats(String userID){
+        // Wszystkie czaty do których przynalaży użytkownik
+        String loadChatsQuery = "SELECT chat_users.chat_id_fk, chats.name, chats.enter_code FROM chats INNER JOIN chat_users ON chats.chat_id=chat_users.chat_id_fk WHERE chat_users.user_id_fk="+userID+";";
+        return loadChats(loadChatsQuery);
+    }
+
+    public static ArrayList<Chat> loadOwnUserChats(String userID){
+        // Wszystkie czaty które stworzył użytkownik
+        String loadChatsQuery = "SELECT chat_users.chat_id_fk, chats.name, chats.enter_code FROM chats INNER JOIN chat_users ON chats.chat_id=chat_users.chat_id_fk WHERE chat_users.user_id_fk="+userID+" AND chat_users.is_owner=1;";
+        return loadChats(loadChatsQuery);
+    }
+
+
 }
