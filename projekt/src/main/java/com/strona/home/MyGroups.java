@@ -44,19 +44,19 @@ public class MyGroups extends HttpServlet {
         HttpSession session = request.getSession();
         Object login = session.getAttribute("login");
         String userLogin = (String) login;
+        Sidebar.doPost(request);
 
         // jak nie jesteśmy zalogowanie odsyła nas do loginPage.jsp
         RequestDispatcher view;
         if (login == null) {
             view = request.getRequestDispatcher("loginPage.jsp");
         } else {
-            if(session.getAttribute("alreadyVisitedMyGroups")==null) {
-                loadChats(userLogin);
-                session.setAttribute("ownChats", ownChatList);
-                for(Chat chat : ownChatList){
-                    System.out.print(chat.getChatName());
-                    System.out.println(chat.getEnterCode());
-                }
+            ownChatList.clear();
+            loadChats(userLogin);
+            session.setAttribute("ownChats", ownChatList);
+            for(Chat chat : ownChatList){
+                System.out.print(chat.getChatName());
+                System.out.println(chat.getEnterCode());
             }
             view = request.getRequestDispatcher("home/myGroups.jsp");
         }

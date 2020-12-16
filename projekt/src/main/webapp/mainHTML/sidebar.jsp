@@ -14,9 +14,6 @@
             for(Chat chat : chatList){
                 out.print("<li><a href='#'>"+chat.getChatName()+"</a></li>");
             }
-            if(session.getAttribute("alreadyVisitedHome")==null){
-                session.setAttribute("alreadyVisitedHome", "yes");
-            }
         %>
     </ul>
 

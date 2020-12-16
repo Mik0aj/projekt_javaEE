@@ -14,9 +14,6 @@
             for(Chat chat : chatList){
                 out.print("<li><a href='#'>"+chat.getChatName()+"</a></li>");
             }
-            if(session.getAttribute("alreadyVisitedHome")==null){
-                session.setAttribute("alreadyVisitedHome", "yes");
-            }
         %>
     </ul>
 
@@ -24,7 +21,10 @@
 
         <li>
             <a class="download" onclick="showTextInput('GroupCode')">Wpisz kod grupy</a>
-            <input id="GroupCode" class="download" type="text" style="display: none; margin-bottom: 10pt"/>
+            <form method="post" action="${pageContext.request.contextPath}/MyGroups">
+                <input id="GroupCode" name="groupCode" class="download" type="text" style="display: none; margin-bottom: 10pt"/>
+                <button type="submit" class="btn btn-danger" style="display: none; margin-bottom: 10pt">Dodaj</button>
+            </form>
         </li>
         <li>
             <a class="article" href="createChat.jsp">Nowa grupa</a>

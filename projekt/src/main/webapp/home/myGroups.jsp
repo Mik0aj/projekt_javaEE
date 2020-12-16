@@ -26,9 +26,6 @@
                 for(Chat chat : ownChatList){
                     out.print("<h2><a href='#'>"+chat.getChatName()+"</a> Kod czatu: "+chat.getEnterCode()+"<h2>");
                 }
-                if(session.getAttribute("alreadyVisitedMyGroups")==null){
-                    session.setAttribute("alreadyVisitedMyGroups", "yes");
-                }
             %>
 
         </div>

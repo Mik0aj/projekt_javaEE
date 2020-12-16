@@ -35,7 +35,6 @@
             }
         %>
         <input type="submit" value="Utwórz chat">
-        <% session.invalidate(); %>
     </form>
 </div>
 
