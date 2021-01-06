@@ -1,14 +1,14 @@
 package com.strona.home;
 
-import com.database.ChatUsers;
-import com.database.Chats;
-import com.database.User;
+import com.database.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 public class PreparePage {
     public static void prepareSidebar(HttpServletRequest request){
+        // przygotowuje dane będące w lewym pasku (grupy)
         try {
             HttpSession session = request.getSession();
             Object login = session.getAttribute("login");
@@ -24,11 +24,24 @@ public class PreparePage {
     }
 
     public static void prepareMyGroupsContent(HttpServletRequest request){
+        // wysyła dane grup których jesteśmy właścicielami
         HttpSession session = request.getSession();
         Object login = session.getAttribute("login");
         String userLogin = (String) login;
 
         session.setAttribute("ownChats", ChatUsers.loadOwnUserChats(User.getId(userLogin)));
+    }
+
+    public static void prepareMessages(HttpServletRequest request){
+        // przygotowanie danych (wiadomości w danym czacie)
+        String groupID = request.getParameter("groupID");
+        ArrayList<Message> messages = ChatMessages.getChatMessages(groupID);
+        HttpSession session = request.getSession();
+
+        String userId = User.getId(session.getAttribute("login"));
+
+        session.setAttribute("userId", userId);
+        session.setAttribute("messages", messages);
     }
 
     private static void sidebarEnterCodeGroup(HttpServletRequest request, HttpSession session, Object login) {

@@ -71,6 +71,31 @@ public class User {
     }
 
     @NotNull
+    public static String getLoginByID(Object userID) {
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String userEmail = "SELECT login FROM `users` WHERE user_id='"+ userID +"'";
+
+        String dbLogin = null;
+
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(userEmail);
+            if(queryResult.next()){
+                dbLogin = queryResult.getString("login");
+
+            }
+            else{
+                databaseConnection.closeConnection();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return dbLogin;
+    }
+
+    @NotNull
     public static String getId(Object login) {
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();

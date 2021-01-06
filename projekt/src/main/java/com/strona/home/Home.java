@@ -1,5 +1,7 @@
 package com.strona.home;
 
+import com.database.ChatMessages;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +15,30 @@ import java.io.IOException;
 public class Home extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        RequestDispatcher view;
+
+        String message = request.getParameter("message");
+        System.out.println(message);
+        if (message.length() > 0) { // jeśli jest wiadomość
+
+            ChatMessages.createNewMessage(
+                    session.getAttribute("groupID").toString(),
+                    session.getAttribute("userId").toString(),
+                    message);
+
+            PreparePage.prepareMessages(request);
+
+            //response.setHeader("groupID", session.getAttribute("groupID").toString());
+            doGet(request,response);
+        } else {
+            // pass
+
+        }
+
         PreparePage.prepareSidebar(request);
 
-        RequestDispatcher view = request.getRequestDispatcher("home/home.jsp");
+        view = request.getRequestDispatcher("home/home.jsp");
         view.forward(request, response);
     }
 
@@ -28,8 +51,21 @@ public class Home extends HttpServlet {
         if (login == null) {
             view = request.getRequestDispatcher("loginPage.jsp");
         } else {
+
+            String groupID = request.getParameter("groupID");
+            // jeśli mamy wybraną grupę
+            if (groupID != null) {
+                PreparePage.prepareMessages(request);
+                session.setAttribute("groupID", groupID);
+            } else {
+                System.out.println("Nie wybrano grupy");
+            }
+
             PreparePage.prepareSidebar(request);
             view = request.getRequestDispatcher("home/home.jsp");
+
+
+
         }
         view.forward(request, response);
     }
