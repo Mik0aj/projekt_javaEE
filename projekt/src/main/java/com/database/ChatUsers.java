@@ -77,9 +77,9 @@ public class ChatUsers {
         Connection connection = databaseConnection.getConnection();
         String commend;
         if (isOwner)
-            commend = "INSERT INTO chat_users (user_id_fk, chat_id_fk, is_owner) VALUES ('"+userId+"', '"+chatId+"', 1);";
+            commend = "INSERT INTO chat_users (user_id_fk, chat_id_fk, nick, is_owner) VALUES ('"+userId+"', '"+chatId+"', '"+User.getLoginByID(userId)+"', 1);";
         else
-            commend = "INSERT INTO chat_users (user_id_fk, chat_id_fk) VALUES ('"+userId+"', '"+chatId+"');";
+            commend = "INSERT INTO chat_users (user_id_fk, chat_id_fk, nick) VALUES ('"+userId+"', '"+chatId+"', '"+User.getLoginByID(userId)+"');";
 
         try {
             Statement statement = connection.createStatement();
@@ -96,7 +96,7 @@ public class ChatUsers {
     public static boolean addChatUser(String userId, String chatId){
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = databaseConnection.getConnection();
-        String commend = "INSERT INTO chat_users (user_id_fk, chat_id_fk) VALUES ('"+userId+"', '"+chatId+"');";
+        String commend = "INSERT INTO chat_users (user_id_fk, chat_id_fk, nick) VALUES ('"+userId+"', '"+chatId+"', '"+User.getLoginByID(userId)+"');";
 
         try {
             Statement statement = connection.createStatement();
@@ -149,5 +149,101 @@ public class ChatUsers {
         return loadChats(loadChatsQuery);
     }
 
+    public static String getNick(String userID, String chatID){
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String query = "SELECT nick FROM `chat_users` WHERE user_id_fk='"+ userID +"' AND chat_id_fk='"+chatID+"';";
+
+        String nick = null;
+
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(query);
+            if(queryResult.next()){
+                nick = queryResult.getString("nick");
+
+            }
+            else{
+                databaseConnection.closeConnection();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return nick;
+    }
+
+    public static boolean setNick(String userID, String chatID, String nick){
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String query = "UPDATE `chat_users` SET nick='"+ nick +"' WHERE user_id_fk='"+ userID +"' AND chat_id_fk='"+chatID+"';";
+
+        boolean result = false;
+
+        try{
+            Statement statement = connection.createStatement();
+            boolean queryResult = statement.execute(query);
+            if(queryResult){
+                result = true;
+            }
+            else{
+                databaseConnection.closeConnection();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static boolean isOwner(String userID, String chatID){
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+        String query = "SELECT is_owner FROM `chat_users` WHERE user_id_fk='"+ userID +"' AND chat_id_fk='"+chatID+"';";
+
+        String resultString = "-1";
+
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(query);
+            if(queryResult.next()){
+                resultString = queryResult.getString("is_owner");
+
+            }
+            else{
+                databaseConnection.closeConnection();
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        boolean result;
+        result = resultString.equals("1");
+        return result;
+    }
+
+    public static void deleteChatUser(String userID, String chatID){
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = databaseConnection.getConnection();
+
+        // na początku sprawdzamy czy to właćciciel
+        boolean isOwner = isOwner(userID, chatID);
+
+        if (isOwner){
+            Chats.deleteChat(chatID);
+        } else {
+            // usuwa użytkownika grupy
+            String query = "DELETE FROM `chat_users` WHERE user_id_fk='"+ userID +"' AND chat_id_fk='"+chatID+"';";
+            try {
+                Statement statement = connection.createStatement();
+                statement.execute(query);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        databaseConnection.closeConnection();
+    }
 
 }

@@ -1,0 +1,2 @@
+Folder przeznaczony dla serwletów zarządzającymi ustawieniami profilu na grupe.
+Zawiera też ustawienia dla właćciciela grupy.

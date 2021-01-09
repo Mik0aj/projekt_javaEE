@@ -1,5 +1,6 @@
 <%@ page import="com.database.Message" %>
-<%@ page import="com.database.User" %><%--
+<%@ page import="com.database.User" %>
+<%@ page import="com.database.ChatUsers" %><%--
   Created by IntelliJ IDEA.
   User: paswi
   Date: 03.11.2020
@@ -24,6 +25,12 @@
 
         <%
             if (session.getAttribute("groupID") != null){
+                out.print("<div class=\"row\">");
+                out.print("<form method='GET' action=\"MyProfileInGroup\">");
+                out.print("<button type=\"submit\" href=\"/MyProfileInGroup\" class=\"btn btn-success\">Ustawienia</button>\n");
+                out.print("</form>");
+                out.print("</div>");
+
                 ArrayList<Message> messages =(ArrayList<Message>)session.getAttribute("messages");
 
                 for(Message message : messages){
@@ -43,7 +50,8 @@
 
                     } else {
                         //out.print("<div class=\"container\" style=\"border: 2px solid #dedede; border-radius: 5px; padding: 10px;\">");
-                        out.print("<div class=\"container\" style=\"border: 2px solid #dedede; border-radius: 5px; padding: 40px; margin-right: auto; margin-top: 10px;\">");                        out.print("<h2 style=\"float: right;\">"+User.getLoginByID(message.getUser_id())+"</h2>");
+                        out.print("<div class=\"container\" style=\"border: 2px solid #dedede; border-radius: 5px; padding: 40px; margin-right: auto; margin-top: 10px;\">");
+                        out.print("<h2 style=\"float: right;\">"+ ChatUsers.getNick(message.getUser_id(), message.getChat_id())+"</h2>");
                         out.print("<div style=\"float: left; position: relative; top:-22px;\">");
                         out.print("<p>"+message.getContent()+"</p>");
                         out.print("<p style=\"font-size: 12px;\">"+message.getSend_time()+"</p>");

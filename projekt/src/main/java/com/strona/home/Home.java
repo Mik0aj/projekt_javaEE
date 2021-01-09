@@ -20,7 +20,7 @@ public class Home extends HttpServlet {
 
         String message = request.getParameter("message");
         System.out.println(message);
-        if (message.length() > 0) { // jeśli jest wiadomość
+        if (message.length() > 0) { // jeśli jest nowa wiadomość
 
             ChatMessages.createNewMessage(
                     session.getAttribute("groupID").toString(),
@@ -30,6 +30,7 @@ public class Home extends HttpServlet {
             PreparePage.prepareMessages(request);
 
             //response.setHeader("groupID", session.getAttribute("groupID").toString());
+            session.setAttribute("groupID", null);
             doGet(request,response);
         } else {
             // pass
