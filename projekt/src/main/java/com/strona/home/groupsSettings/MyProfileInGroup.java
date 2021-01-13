@@ -1,6 +1,7 @@
 package com.strona.home.groupsSettings;
 
 import com.database.ChatUsers;
+import com.strona.home.PreparePage;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,6 +32,8 @@ public class MyProfileInGroup extends HttpServlet {
             }
             if (leaveGroup != null) {
                 ChatUsers.deleteChatUser((String) userID, (String) groupID);
+                session.setAttribute("groupID", null);
+                PreparePage.prepareSidebar(request);
             }
 
 
