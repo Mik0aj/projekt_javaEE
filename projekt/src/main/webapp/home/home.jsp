@@ -112,7 +112,6 @@
         <h2>User ktoś</h2>
         <p>Wiadomość1</p>
         <h2>User ktoś2</h2>-->
-        <p id="ppp">Wiadomość2</p>
 
 
     </div>

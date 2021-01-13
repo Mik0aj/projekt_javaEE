@@ -23,6 +23,8 @@
             <div class="col-sm-4">
                 <h2>login</h2>
                 <p>${sessionScope.login}</p>
+                <h2>ID</h2>
+                <p>${sessionScope.userId}</p>
             </div>
             <div class="col-sm-4">
                 <h2>email</h2>

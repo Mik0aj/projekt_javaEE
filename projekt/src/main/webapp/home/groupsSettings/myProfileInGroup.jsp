@@ -1,4 +1,5 @@
-<%@ page import="com.database.Chats" %><%--
+<%@ page import="com.database.Chats" %>
+<%@ page import="com.database.ChatUsers" %><%--
   Created by IntelliJ IDEA.
   User: paswi
   Date: 09.01.2021
@@ -28,25 +29,57 @@
             %>
         </h2>
 
-        <div class="row">
-            <form action="MyProfileInGroup" method="post">
-                <div class="col-xl-6">
-                    <input type="text" name="nick" placeholder="nick" onfocus="this.placeholder=''" onblur="this.placeholder='Login'">
-                </div>
-                <div class="col-xl-6">
-                    <button type="submit" class="btn btn-primary">Zatwierdź zmiany</button>
-                </div>
-            </form>
-            <form action="MyProfileInGroup" method="post">
-                <div class="col-xl-6">
-                    <h2 class="row-12">Jeśli jesteś właścicielim grupy opuszczając ją usuwasz grupę.</h2>
-                    <h2 class="row-12">Jeśli jesteś zwykłym użytkownikiem grupy twoje wiadomości zostają po opuszczeniu grupy</h2>
-                </div>
-                <div class="col-xl-6">
-                    <button type="submit" name="leaveGroup" value="leaveGroup" class="btn btn-danger">Opuść grupę</button>
-                </div>
-            </form>
+        <div class="content">
+            <div class="row">
+
+                <form action="MyProfileInGroup" method="post">
+                    <div class="col-sm-4">
+                        <div class="row-xl-6">
+                            <input type="text" name="nick" placeholder="nick" onfocus="this.placeholder=''" onblur="this.placeholder='Login'">
+                        </div>
+                        <div class="row-xl-6">
+                            <button type="submit" class="btn btn-primary">Zatwierdź zmiany</button>
+                        </div>
+                    </div>
+                </form>
+
+                <%
+                    if (ChatUsers.isOwner((String) session.getAttribute("userId"), (String) session.getAttribute("groupID"))){
+                        out.print("<form action=\"MyProfileInGroup\" method=\"post\">");
+                        out.print("<div class=\"col-sm-4\">");
+                        out.print("<div class=\"row-xl-4\">");
+                        out.print("<h2 class=\"row-12\">Dodaj użytkownika do grupy.</h2>");
+                        out.print("</div>");
+                        out.print("<div class=\"row-xl-4\">");
+                        out.print("<input type=\"text\" name=\"newUserID\" placeholder=\"newUserID\" onfocus=\"this.placeholder=''\" onblur=\"this.placeholder='Login'\">");
+                        out.print("</div>");
+                        out.print("<div class=\"row-xl-4\">");
+                        out.print("<button type=\"submit\" class=\"btn btn-primary\">Dodaj</button>");
+                        out.print("</div>");
+                        out.print("</div>");
+                        out.print("</form>");
+
+                    }
+                %>
+
+
+
+
+                <form action="MyProfileInGroup" method="post">
+                    <div class="col-sm-4">>
+                        <div class="row-xl-6">
+                            <h2 class="row-12">Jeśli jesteś właścicielim grupy opuszczając ją usuwasz grupę.</h2>
+                            <h2 class="row-12">Jeśli jesteś zwykłym użytkownikiem grupy twoje wiadomości zostają po opuszczeniu grupy</h2>
+                        </div>
+                        <div class="row-xl-6">
+                            <button type="submit" name="leaveGroup" value="leaveGroup" class="btn btn-danger">Opuść grupę</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
         </div>
+
 
 
     </div>

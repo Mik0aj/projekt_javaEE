@@ -53,6 +53,7 @@ public class MyAccount extends HttpServlet {
         } else {
             String dbEmail = User.getEmail(login);
             session.setAttribute("userEmail", dbEmail);
+            session.setAttribute("userId", User.getId(login));
             view = request.getRequestDispatcher("home/myAccount/myAccount.jsp");
         }
         view.forward(request, response);

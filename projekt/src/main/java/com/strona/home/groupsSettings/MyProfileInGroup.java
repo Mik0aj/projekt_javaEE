@@ -22,10 +22,12 @@ public class MyProfileInGroup extends HttpServlet {
         Object groupID = session.getAttribute("groupID");
 
         if (userID == null || groupID == null) {
-            // pass
+            view = request.getRequestDispatcher("home/home.jsp");
         } else {
+            view = request.getRequestDispatcher("home/groupsSettings/myProfileInGroup.jsp");
             String nick = request.getParameter("nick");
             String leaveGroup = request.getParameter("leaveGroup");
+            String newUserID = request.getParameter("newUserID");
 
             if (nick != null) {
                 ChatUsers.setNick((String) userID, (String) groupID, nick);
@@ -34,12 +36,15 @@ public class MyProfileInGroup extends HttpServlet {
                 ChatUsers.deleteChatUser((String) userID, (String) groupID);
                 session.setAttribute("groupID", null);
                 PreparePage.prepareSidebar(request);
+                view = request.getRequestDispatcher("home/home.jsp");
             }
-
+            if (newUserID != null) {
+                ChatUsers.addChatUser(newUserID, (String) groupID);
+            }
 
         }
 
-        view = request.getRequestDispatcher("home/home.jsp");
+
         view.forward(request, response);
     }
 
