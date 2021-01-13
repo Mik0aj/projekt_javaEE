@@ -12,7 +12,9 @@
             List<Chat> chatList =(ArrayList<Chat>)session.getAttribute("chats");
 
             for(Chat chat : chatList){
-                out.print("<li><a href='#'>"+chat.getChatName()+"</a></li>");
+                out.print("<span method='GET'>");
+                out.print("<li><a href='"+pageContext.getServletContext().getContextPath()+"/home?groupID="+chat.getChatID()+"'>"+chat.getChatName()+"</a></li>");
+                out.print("</span>");
             }
         %>
     </ul>

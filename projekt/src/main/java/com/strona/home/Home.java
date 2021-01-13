@@ -30,7 +30,7 @@ public class Home extends HttpServlet {
             PreparePage.prepareMessages(request);
 
             //response.setHeader("groupID", session.getAttribute("groupID").toString());
-            session.setAttribute("groupID", null);
+            //session.setAttribute("groupID", null);
             doGet(request,response);
         } else {
             // pass
@@ -56,14 +56,27 @@ public class Home extends HttpServlet {
             String groupID = request.getParameter("groupID");
             // jeśli mamy wybraną grupę
             if (groupID != null) {
+                System.out.println(groupID);
                 PreparePage.prepareMessages(request);
                 session.setAttribute("groupID", groupID);
-            } else {
+                request.setAttribute("messages", session.getAttribute("messages"));
+                PreparePage.prepareSidebar(request);
+                view = request.getRequestDispatcher("home/home.jsp");
+            }
+            else if(session.getAttribute("groupID")!=null){
+                PreparePage.prepareMessages(request);
+                request.setAttribute("messages", session.getAttribute("messages"));
+                PreparePage.prepareSidebar(request);
+                view = request.getRequestDispatcher("home/home.jsp");
+            }
+            else {
                 System.out.println("Nie wybrano grupy");
+                PreparePage.prepareSidebar(request);
+                view = request.getRequestDispatcher("home/home.jsp");
             }
 
-            PreparePage.prepareSidebar(request);
-            view = request.getRequestDispatcher("home/home.jsp");
+            //PreparePage.prepareSidebar(request);
+            //view = request.getRequestDispatcher("home/home.jsp");
 
 
 

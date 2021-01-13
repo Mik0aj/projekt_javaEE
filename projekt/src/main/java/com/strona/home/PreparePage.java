@@ -34,9 +34,18 @@ public class PreparePage {
 
     public static void prepareMessages(HttpServletRequest request){
         // przygotowanie danych (wiadomości w danym czacie)
-        String groupID = request.getParameter("groupID");
-        ArrayList<Message> messages = ChatMessages.getChatMessages(groupID);
+        String groupID;
+
         HttpSession session = request.getSession();
+
+        if(request.getParameter("groupID")!=null){
+            groupID = request.getParameter("groupID");
+        }
+        else{
+            groupID = session.getAttribute("groupID").toString();
+        }
+
+        ArrayList<Message> messages = ChatMessages.getChatMessages(groupID);
 
         String userId = User.getId(session.getAttribute("login"));
 

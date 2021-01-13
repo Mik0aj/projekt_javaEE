@@ -10,6 +10,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
     <%@ include file="../mainHTML/head.html" %>
+<head>
+</head>
 <body>
 
 <div class="wrapper">
@@ -32,6 +34,10 @@
                 out.print("</div>");
 
                 ArrayList<Message> messages =(ArrayList<Message>)session.getAttribute("messages");
+
+                if(session.getAttribute("messages")==null){
+                    out.print("<h2 style=\"float: left;\">SRAM</h2>");
+                }
 
                 for(Message message : messages){
                     if (session.getAttribute("userId").toString().equals(message.getUser_id())) {
@@ -105,9 +111,9 @@
         <!--
         <h2>User ktoś</h2>
         <p>Wiadomość1</p>
-        <h2>User ktoś2</h2>
-        <p>Wiadomość2</p>
-        -->
+        <h2>User ktoś2</h2>-->
+        <p id="ppp">Wiadomość2</p>
+
 
     </div>
 
