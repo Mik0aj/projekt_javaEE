@@ -1,0 +1,43 @@
+body
+{
+    /* Background pattern from Toptal Subtle Patterns */
+    background-image: url('img/dark-honeycomb.png') !important;
+    color: #e5e5e5;
+}
+
+#header1
+{
+    padding: 50px;
+    text-align: center;
+    width: 800px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    letter-spacing: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1
+{
+    font-size: 36px;
+}
+
+#list
+{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+}
+
+ol
+{
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+ul
+{
+    font-size: 18px;
+    letter-spacing: 2px;
+}

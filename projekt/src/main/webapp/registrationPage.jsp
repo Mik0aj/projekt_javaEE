@@ -37,7 +37,7 @@
                         out.print("<div class='error'>"+session.getAttribute("passwordError2")+"</div>");
                     }
                 %>
-                <label id="policyLabel"><input type="checkbox" name="policy"> Akceptuję <a href="#" id="policyLink">regulamin</a></label>
+                <label id="policyLabel"><input type="checkbox" name="policy"> Akceptuję <a href="policy.jsp" id="policyLink">regulamin</a></label>
                 <%
                     if(session.getAttribute("policyError")!=null){
                         out.print("<div class='error'>"+session.getAttribute("policyError")+"</div>");

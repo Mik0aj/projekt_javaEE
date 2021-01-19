@@ -11,13 +11,7 @@
 <html lang="pl">
     <%@ include file="../mainHTML/head.html" %>
 <head>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-    <script>
-        function sendMessage(){
-            console.log('Ullla');
-        }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -111,6 +105,9 @@
                 */
 
             }
+            else{
+                out.print("<p id=\"ppp\">Witamy!</p>");
+            }
         %>
 
 
@@ -119,7 +116,6 @@
         <h2>User ktoś</h2>
         <p>Wiadomość1</p>
         <h2>User ktoś2</h2>-->
-        <p id="ppp">Wiadomość2</p>
 
 
     </div>
