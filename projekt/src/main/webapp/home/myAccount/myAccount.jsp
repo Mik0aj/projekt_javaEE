@@ -37,6 +37,12 @@
                     </form>
 
                 </div>
+                <div>
+                    <form method="post" action="${pageContext.request.contextPath}/Logout">
+                        <button type="submit" name="logout" value="logout" class="btn btn-warning">Wyloguj</button>
+                    </form>
+
+                </div>
             </div>
         </div>
         <!-- informacje o profilu -->

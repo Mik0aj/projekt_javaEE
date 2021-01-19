@@ -160,6 +160,8 @@ public class User {
 
 
 
+
+
         // usunięcie user+id+_chats
         connection = databaseConnection.getConnection();
         String dropUserIdChats = "DROP TABLE IF EXISTS user"+ useId +"_chats";
